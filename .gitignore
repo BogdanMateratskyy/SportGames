@@ -1,0 +1,44 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+#Idea files
+.idea
+
+*.sql
+
+#Eclipse files
+*.project
+*.settings/
+*.classpath
+
+build/
+gradle
+.gradle
+.log
+.springBeans
+bin
+target/
+traveler-model/target/
+traveler-persistence/target/
+traveler-presentation/target/
+traveler-service/target/
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*

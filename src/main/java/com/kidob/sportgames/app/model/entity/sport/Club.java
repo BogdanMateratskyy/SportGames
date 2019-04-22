@@ -1,7 +1,12 @@
 package com.kidob.sportgames.app.model.entity.sport;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.kidob.sportgames.app.model.entity.base.AbstractEntity;
@@ -17,6 +22,9 @@ import com.kidob.sportgames.app.model.entity.base.AbstractEntity;
 public class Club extends AbstractEntity{	
 	@Column(name = "ClubName", nullable = false, length = 450)
 	private String clubName;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, 
+			mappedBy = "club", orphanRemoval = true)
+	private Set<Team> teams;
 	
 	public Club() {
 	}
@@ -31,5 +39,13 @@ public class Club extends AbstractEntity{
 
 	public void setClubName(String clubName) {
 		this.clubName = clubName;
+	}
+
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
 	}
 }

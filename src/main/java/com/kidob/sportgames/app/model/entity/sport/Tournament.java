@@ -1,5 +1,9 @@
 package com.kidob.sportgames.app.model.entity.sport;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.kidob.sportgames.app.model.entity.base.AbstractEntity;
 
 /**
@@ -8,7 +12,11 @@ import com.kidob.sportgames.app.model.entity.base.AbstractEntity;
  * @author Bogdan
  *
  */
+@Entity
+@Table (name = "Tournament", schema = "SportGames")
 public class Tournament extends AbstractEntity{
+	
+	@Column (name = "TournamentName", length = 450)
 	private String name;
 
 	public Tournament() {

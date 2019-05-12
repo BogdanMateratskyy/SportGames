@@ -20,19 +20,21 @@ public class AbstractEntity {
 	/**
 	 * Unique entity identifier
 	 */
+	@Id
+	@GeneratedValue//(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private int id;
 	/**
 	 * Timestamp of entity creation
 	 */
+	@Column(name = "Created_at", nullable = false, updatable = false)
 	private LocalDateTime createdAt;
 	/**
 	 * Timestamp of entity last modification
 	 */
+	@Column(name = "ModifiedDate", insertable = false)
 	private LocalDateTime modifiedDate;
 
-	@Id
-	@GeneratedValue//(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	public int getId() {
 		return id;
 	}
@@ -41,7 +43,6 @@ public class AbstractEntity {
 		this.id = id;
 	}
 
-	@Column(name = "ModifiedDate", insertable = false)
 	public LocalDateTime getModifiedDate() {
 		return modifiedDate;
 	}
@@ -50,7 +51,6 @@ public class AbstractEntity {
 		this.modifiedDate = modifiedDate;
 	}
 
-	@Column(name = "Created_at", nullable = false, updatable = false)
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}

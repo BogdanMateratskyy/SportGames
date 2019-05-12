@@ -18,10 +18,12 @@ import com.kidob.sportgames.app.model.entity.base.AbstractEntity;
 @Table(name = "Matches", schema = "SportGames")
 public class Matches extends AbstractEntity{
 	
-	@Column(name = "Sport", nullable = false)
+	@Column(name = "SportId", nullable = false)
 	private Sport sport;
-	@Column(name = "Tournament", nullable = false)
+	
+	@Column(name = "TournamentId", nullable = false)
 	private Tournament tournament;
+	
 	@Column(name = "DateMatch", nullable = false)
 	private LocalDateTime dateMatch;
 	

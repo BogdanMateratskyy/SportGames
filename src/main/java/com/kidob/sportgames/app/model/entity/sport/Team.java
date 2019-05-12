@@ -20,8 +20,9 @@ public class Team extends AbstractEntity {
 
 	@Column(name = "TeamName", nullable = false, length = 450)
 	private String name;
+	
 	@ManyToOne
-	@JoinColumn(name = "ClubId")
+	@JoinColumn(name = "ClubId", nullable = false)
 	private Club club;
 
 	public Team() {

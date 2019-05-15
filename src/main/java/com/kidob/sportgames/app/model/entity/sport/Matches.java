@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.kidob.sportgames.app.model.entity.base.AbstractEntity;
@@ -18,10 +20,12 @@ import com.kidob.sportgames.app.model.entity.base.AbstractEntity;
 @Table(name = "Matches", schema = "SportGames")
 public class Matches extends AbstractEntity{
 	
-	@Column(name = "SportId", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "SportID", nullable = false)
 	private Sport sport;
 	
-	@Column(name = "TournamentId", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "TournamentID", nullable = false)
 	private Tournament tournament;
 	
 	@Column(name = "DateMatch", nullable = false)

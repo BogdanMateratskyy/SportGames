@@ -21,7 +21,7 @@ public class AbstractEntity {
 	 * Unique entity identifier
 	 */
 	@Id
-	@GeneratedValue//(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
 	/**

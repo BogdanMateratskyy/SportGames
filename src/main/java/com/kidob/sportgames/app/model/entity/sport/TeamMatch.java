@@ -2,6 +2,7 @@ package com.kidob.sportgames.app.model.entity.sport;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -17,6 +18,9 @@ import com.kidob.sportgames.app.model.entity.location.Place;
 @Entity
 @Table (name = "TeamMatch", schema = "SportGames")
 public class TeamMatch {
+	@Id
+	@Column(name = "ID", nullable = false)
+	private Long id;
 	
 	@ManyToOne
 	@JoinColumn (name = "MatchID", nullable = false)
@@ -43,6 +47,10 @@ public class TeamMatch {
 		this.place = place;
 	}
 
+	public Long getId() {
+		return id;
+	}
+	
 	public Matches getMatch() {
 		return match;
 	}

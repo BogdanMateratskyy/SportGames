@@ -1,6 +1,11 @@
 package com.kidob.sportgames.app.model.entity.sport;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.kidob.sportgames.app.model.entity.location.Place;
 
 /**
@@ -10,10 +15,22 @@ import com.kidob.sportgames.app.model.entity.location.Place;
  *
  */
 @Entity
+@Table (name = "TeamMatch", schema = "SportGames")
 public class TeamMatch {
+	
+	@ManyToOne
+	@JoinColumn (name = "MatchID", nullable = false)
 	private Matches match;
+	
+	@ManyToOne
+	@JoinColumn (name = "TeamID", nullable = false)
 	private Team team;
+	
+	@Column (name = "Score_Team_Match")
 	private int scoreTeamMatch;
+	
+	@ManyToOne
+	@JoinColumn (name = "PlaceID")
 	private Place place;
 	
 	public TeamMatch() {

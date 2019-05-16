@@ -1,0 +1,42 @@
+package com.kidob.sportgames.app.service.impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.kidob.sportgames.app.model.entity.sport.Team;
+import com.kidob.sportgames.app.persistence.repository.TeamRepository;
+import com.kidob.sportgames.app.service.TeamService;
+
+public class TeamServiceImpl implements TeamService {
+
+	@Autowired
+	private TeamRepository teamRepository;
+	
+	@Override
+	public Team saveTeam(Team team) {
+		return teamRepository.save(team);
+	}
+
+	@Override
+	public Team updateTeam(Team team) {
+		return teamRepository.saveAndFlush(team);
+	}
+
+	@Override
+	public List<Team> findTeams() {
+		return teamRepository.findAll();
+	}
+
+	@Override
+	public Optional<Team> findTeamById(Long teamId) {
+		return teamRepository.findById(teamId);
+	}
+
+	@Override
+	public void deleteTeam(Long TeamId) {
+
+	}
+
+}

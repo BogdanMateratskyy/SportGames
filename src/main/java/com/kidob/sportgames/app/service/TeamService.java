@@ -18,7 +18,7 @@ public interface TeamService {
 	 * 
 	 * @param team
 	 */
-	void saveTeam(Team team);
+	Team saveTeam(Team team);
 
 	/**
 	 * Updates specified team instance if exists
@@ -42,7 +42,7 @@ public interface TeamService {
 	 * @param id
 	 * @return
 	 */
-	Optional<Team> findTeamById(Long id);
+	Optional<Team> findTeamById(Long teamId);
 
 	// List<Team> searchTeams();
 
@@ -51,5 +51,5 @@ public interface TeamService {
 	 * 
 	 * @param TeamId
 	 */
-	void deleteTeam(Long TeamId);
+	void deleteTeam(Long teamId);
 }

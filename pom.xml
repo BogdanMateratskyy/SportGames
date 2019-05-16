@@ -3,9 +3,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kidob</groupId>
-	<artifactId>springtravel</artifactId>
+	<artifactId>sportgames</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springtravel</name>
+	<name>sportgames</name>
 	<description>Transport system</description>
 
 	<parent>

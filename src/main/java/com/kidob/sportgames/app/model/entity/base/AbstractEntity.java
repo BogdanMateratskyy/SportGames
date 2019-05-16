@@ -23,7 +23,7 @@ public class AbstractEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	private int id;
+	private Long id;
 	/**
 	 * Timestamp of entity creation
 	 */
@@ -35,11 +35,11 @@ public class AbstractEntity {
 	@Column(name = "ModifiedDate", insertable = false)
 	private LocalDateTime modifiedDate;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -71,7 +71,7 @@ public class AbstractEntity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((modifiedDate == null) ? 0 : modifiedDate.hashCode());
 		return result;
 	}
@@ -90,7 +90,10 @@ public class AbstractEntity {
 				return false;
 		} else if (!createdAt.equals(other.createdAt))
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (modifiedDate == null) {
 			if (other.modifiedDate != null)

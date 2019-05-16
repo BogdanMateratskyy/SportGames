@@ -23,10 +23,10 @@ public class Club extends AbstractEntity{
 	
 	@Column(name = "ClubName", nullable = false, length = 450)
 	private String clubName;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, 
-			mappedBy = "club", orphanRemoval = true)
-	private Set<Team> teams;
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy =
+	 * "club", orphanRemoval = true) private Set<Team> teams;
+	 */
 	
 	public Club() {
 	}
@@ -43,11 +43,9 @@ public class Club extends AbstractEntity{
 		this.clubName = clubName;
 	}
 
-	public Set<Team> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(Set<Team> teams) {
-		this.teams = teams;
-	}
+	/*
+	 * public Set<Team> getTeams() { return teams; }
+	 * 
+	 * public void setTeams(Set<Team> teams) { this.teams = teams; }
+	 */
 }

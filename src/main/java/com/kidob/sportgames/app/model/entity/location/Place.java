@@ -1,15 +1,19 @@
 package com.kidob.sportgames.app.model.entity.location;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 /**
  * Place of the match that we support in the application 
  * 
  * @author Bogdan
  * 
  */
+@Entity
+@Table (name = "Place", schema = "SportGames")
 public class Place {
 
 	@Id

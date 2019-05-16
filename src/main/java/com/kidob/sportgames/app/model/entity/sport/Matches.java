@@ -29,15 +29,15 @@ public class Matches extends AbstractEntity{
 	private Tournament tournament;
 	
 	@Column(name = "DateMatch", nullable = false)
-	private LocalDateTime dateMatch;
+	private LocalDateTime dateOfMatch;
 	
 	public Matches() {
 	}
 
-	public Matches(Sport sport, Tournament tournament, LocalDateTime dateMatch) {
+	public Matches(Sport sport, Tournament tournament, LocalDateTime dateOfMatch) {
 		this.sport = sport;
 		this.tournament = tournament;
-		this.dateMatch = dateMatch;
+		this.dateOfMatch = dateOfMatch;
 	}
 
 	public Sport getSport() {
@@ -57,10 +57,10 @@ public class Matches extends AbstractEntity{
 	}
 
 	public LocalDateTime getDateMatch() {
-		return dateMatch;
+		return dateOfMatch;
 	}
 
-	public void setDateMatch(LocalDateTime dateMatch) {
-		this.dateMatch = dateMatch;
+	public void setDateMatch(LocalDateTime dateOfMatch) {
+		this.dateOfMatch = dateOfMatch;
 	}
 }

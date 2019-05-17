@@ -25,18 +25,18 @@ public class TeamMatch {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn (name = "MatchID", nullable = false)
+	@JoinColumn (name = "Match_ID", nullable = false)
 	private Matches match;
 	
 	@ManyToOne
-	@JoinColumn (name = "TeamID", nullable = false)
+	@JoinColumn (name = "Team_ID", nullable = false)
 	private Team team;
 	
 	@Column (name = "Score_Team_Match")
 	private int scoreTeamMatch;
 	
 	@ManyToOne
-	@JoinColumn (name = "PlaceID")
+	@JoinColumn (name = "Place_ID")
 	private Place place;
 	
 	public TeamMatch() {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kidob.sportgames.app.model.entity.sport.Team;
 import com.kidob.sportgames.app.persistence.repository.TeamRepository;
+import com.kidob.sportgames.app.rest.dto.TeamDTO;
 import com.kidob.sportgames.app.service.TeamService;
 
 /**
@@ -21,14 +22,17 @@ public class TeamServiceImpl implements TeamService {
 
 	@Autowired
 	private TeamRepository teamRepository;
-	
+
 	@Override
 	public Team saveTeam(Team team) {
 		return teamRepository.save(team);
 	}
 
 	@Override
-	public Team updateTeam(Team team) {
+	public Team updateTeam(TeamDTO teamDTO) {
+		Team team = teamRepository.findById(teamDTO.getId())
+				.orElseThrow(() -> new RuntimeException("Team not found"));
+		team.setName(teamDTO.getName());
 		return teamRepository.saveAndFlush(team);
 	}
 

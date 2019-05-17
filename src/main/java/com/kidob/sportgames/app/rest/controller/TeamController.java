@@ -49,7 +49,7 @@ public class TeamController {
 	 */
 	@PutMapping("/update")
 	public Team updateTeam(@RequestBody TeamDTO teamDTO) {
-		return teamService.updateTeam(modelMapper.map(teamDTO, Team.class));
+		return teamService.updateTeam(teamDTO);
 	}
 
 	/**

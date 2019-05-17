@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.kidob.sportgames.app.model.entity.sport.Team;
+import com.kidob.sportgames.app.rest.dto.TeamDTO;
 
 /**
  * Entry point to perform operations over team entities
@@ -27,7 +28,7 @@ public interface TeamService {
 	 * @param team
 	 * @return
 	 */
-	Team updateTeam(Team team);
+	Team updateTeam(TeamDTO team);
 
 	/**
 	 * Return list of existing teams

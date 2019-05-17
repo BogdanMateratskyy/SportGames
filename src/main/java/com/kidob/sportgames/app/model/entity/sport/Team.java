@@ -22,7 +22,7 @@ public class Team extends AbstractEntity {
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name = "ClubId", nullable = false)
+	@JoinColumn(name = "ClubId")
 	private Club club;
 
 	public Team() {

@@ -36,7 +36,7 @@ public class TeamController {
 	 * @param teamDTO
 	 * @return new team instance
 	 */
-	@PostMapping("/save")
+	@PostMapping ("/save")
 	public Team saveTeam(@RequestBody TeamDTO teamDTO) {
 		return teamService.saveTeam(modelMapper.map(teamDTO, Team.class));
 	}
@@ -47,7 +47,7 @@ public class TeamController {
 	 * @param teamDTO
 	 * @return
 	 */
-	@PutMapping("/update")
+	@PutMapping ("/update")
 	public Team updateTeam(@RequestBody TeamDTO teamDTO) {
 		return teamService.updateTeam(teamDTO);
 	}

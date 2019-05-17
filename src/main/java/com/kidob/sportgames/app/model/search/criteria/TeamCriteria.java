@@ -1,7 +1,5 @@
 package com.kidob.sportgames.app.model.search.criteria;
 
-import com.kidob.sportgames.app.model.entity.sport.Club;
-
 /**
  * Filtering criteria for search teams operation
  * 

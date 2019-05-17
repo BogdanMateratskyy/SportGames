@@ -15,8 +15,9 @@ public interface TeamService {
 
 	/**
 	 * Saves specified team instance
-	 * 
+	 
 	 * @param team
+	 * @return the saved {@link Team} entity will never be null
 	 */
 	Team saveTeam(Team team);
 

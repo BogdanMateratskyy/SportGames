@@ -21,12 +21,24 @@ import com.kidob.sportgames.app.model.entity.sport.Team;
 import com.kidob.sportgames.app.rest.dto.TeamDTO;
 import com.kidob.sportgames.app.service.TeamService;
 
+/**
+ * {@link TeamController} is a REST controller that handles team-related request
+ * 
+ * @author Bogdan
+ *
+ */
 @RestController
 @RequestMapping("team")
 public class TeamController {
 
+	/**
+	 * DTO <-> entity transformer
+	 */
 	ModelMapper modelMapper = new ModelMapper();
 
+	/**
+	 * Underlying source of data
+	 */
 	@Autowired
 	private TeamService teamService;
 
@@ -36,7 +48,7 @@ public class TeamController {
 	 * @param teamDTO
 	 * @return new team instance
 	 */
-	@PostMapping ("/save")
+	@PostMapping("/save")
 	public Team saveTeam(@RequestBody TeamDTO teamDTO) {
 		return teamService.saveTeam(modelMapper.map(teamDTO, Team.class));
 	}
@@ -47,7 +59,7 @@ public class TeamController {
 	 * @param teamDTO
 	 * @return
 	 */
-	@PutMapping ("/update")
+	@PutMapping("/update")
 	public Team updateTeam(@RequestBody TeamDTO teamDTO) {
 		return teamService.updateTeam(teamDTO);
 	}
@@ -59,29 +71,29 @@ public class TeamController {
 	 */
 	@GetMapping("/all")
 	public List<TeamDTO> findAllTeams() {
-		return teamService.findTeams().stream()
-				.map((team) -> modelMapper.map(team, TeamDTO.class))
+		return teamService.findTeams().stream().map((team) -> modelMapper.map(team, TeamDTO.class))
 				.collect(Collectors.toList());
 	}
 
 	/**
 	 * Returns team with specified identifier
+	 * 
 	 * @param teamId
 	 * @return
 	 */
 	@GetMapping("/by/{teamId}")
 	public ResponseEntity<TeamDTO> findTeamById(@PathVariable String teamId) {
-		
-		if(!NumberUtils.isCreatable(teamId)) {
+
+		if (!NumberUtils.isCreatable(teamId)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 		Optional<Team> team = teamService.findTeamById(NumberUtils.toLong(teamId));
-		
-		if(!team.isPresent()) {
+
+		if (!team.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		return ResponseEntity.ok(modelMapper.map(team.get(), TeamDTO.class));
 	}
 }

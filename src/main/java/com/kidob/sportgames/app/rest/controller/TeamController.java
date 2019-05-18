@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kidob.sportgames.app.model.entity.sport.Team;
+import com.kidob.sportgames.app.rest.controller.base.BaseController;
 import com.kidob.sportgames.app.rest.dto.TeamDTO;
 import com.kidob.sportgames.app.service.TeamService;
 
@@ -29,12 +30,7 @@ import com.kidob.sportgames.app.service.TeamService;
  */
 @RestController
 @RequestMapping("team")
-public class TeamController {
-
-	/**
-	 * DTO <-> entity transformer
-	 */
-	ModelMapper modelMapper = new ModelMapper();
+public class TeamController extends BaseController {
 
 	/**
 	 * Underlying source of data

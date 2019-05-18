@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,22 +56,23 @@ public class TeamController extends BaseController {
 	 */
 	@PutMapping("/update")
 	public Team updateTeam(@RequestBody TeamDTO teamDTO) {
-		return teamService.updateTeam(teamDTO);
+		return teamService.updateTeam(modelMapper.map(teamDTO, Team.class));
 	}
 
 	/**
-	 * Return all the existing teams
+	 * Return all the existing teams in the form TeamDTO
 	 * 
 	 * @return
 	 */
 	@GetMapping("/all")
 	public List<TeamDTO> findAllTeams() {
-		return teamService.findTeams().stream().map((team) -> modelMapper.map(team, TeamDTO.class))
+		return teamService.findTeams().stream()
+				.map((team) -> modelMapper.map(team, TeamDTO.class))
 				.collect(Collectors.toList());
 	}
 
 	/**
-	 * Returns team with specified identifier
+	 * Returns team with specified identifier in the form TeamDTO
 	 * 
 	 * @param teamId
 	 * @return

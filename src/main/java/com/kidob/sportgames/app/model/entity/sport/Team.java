@@ -18,11 +18,11 @@ import com.kidob.sportgames.app.model.entity.base.AbstractEntity;
 @Table(name = "Team", schema = "SportGames")
 public class Team extends AbstractEntity {
 
-	@Column(name = "TeamName", nullable = false, length = 450)
+	@Column(name = "Team_Name", nullable = false, length = 450)
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name = "ClubId")
+	@JoinColumn(name = "Club_ID")
 	private Club club;
 
 	public Team() {

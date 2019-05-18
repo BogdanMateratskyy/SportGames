@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.kidob.sportgames.app.model.entity.sport.Club;
-import com.kidob.sportgames.app.rest.dto.ClubDTO;
 
 /**
  *  Entry point to perform operations over club entities
@@ -25,10 +24,10 @@ public interface ClubService {
 	/**
 	 * Updates specified club instance if exists
 	 * 
-	 * @param clubDTO
+	 * @param club
 	 * @return
 	 */
-	Club updateClub(ClubDTO clubDTO);
+	Club updateClub(Club club);
 
 	/**
 	 * Return list of existing clubs

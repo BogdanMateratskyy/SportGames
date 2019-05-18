@@ -3,10 +3,12 @@ package com.kidob.sportgames.app.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.kidob.sportgames.app.infra.exception.PersistenceException;
 import com.kidob.sportgames.app.model.entity.sport.Club;
 import com.kidob.sportgames.app.persistence.repository.ClubRepository;
-import com.kidob.sportgames.app.rest.dto.ClubDTO;
 import com.kidob.sportgames.app.service.ClubService;
 
 /**
@@ -15,8 +17,10 @@ import com.kidob.sportgames.app.service.ClubService;
  * @author Bogdan
  *
  */
+@Service
 public class ClubServiceImpl implements ClubService {
 
+	@Autowired
 	private ClubRepository clubRepository;
 
 	@Override
@@ -25,13 +29,11 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 	@Override
-	public Club updateClub(ClubDTO clubDTO) {
-		Club club = clubRepository.findById(clubDTO.getId())
+	public Club updateClub(Club club) {
+		Club checkedClub = clubRepository.findById(club.getId())
 				.orElseThrow(() -> new PersistenceException("Club not found!"));
-		
-		club.setClubName(clubDTO.getName());
-		
-		return clubRepository.saveAndFlush(club);
+				
+		return clubRepository.saveAndFlush(checkedClub);
 	}
 
 	@Override

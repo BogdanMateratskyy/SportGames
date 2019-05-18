@@ -7,5 +7,5 @@ public class BaseController {
 	/**
 	 * DTO <-> entity transformer
 	 */
-	protected ModelMapper modelMapper;// = new ModelMapper();
+	protected ModelMapper modelMapper = new ModelMapper();
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kidob.sportgames.app.infra.exception.PersistenceException;
 import com.kidob.sportgames.app.model.entity.sport.Team;
 import com.kidob.sportgames.app.persistence.repository.TeamRepository;
 import com.kidob.sportgames.app.rest.dto.TeamDTO;
@@ -31,8 +32,10 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public Team updateTeam(TeamDTO teamDTO) {
 		Team team = teamRepository.findById(teamDTO.getId())
-				.orElseThrow(() -> new RuntimeException("Team not found"));
+				.orElseThrow(() -> new PersistenceException("Team not found"));
+		
 		team.setName(teamDTO.getName());
+		
 		return teamRepository.saveAndFlush(team);
 	}
 

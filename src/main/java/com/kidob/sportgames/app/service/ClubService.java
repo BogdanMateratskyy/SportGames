@@ -3,8 +3,8 @@ package com.kidob.sportgames.app.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.kidob.sportgames.app.model.entity.sport.Team;
-import com.kidob.sportgames.app.rest.dto.TeamDTO;
+import com.kidob.sportgames.app.model.entity.sport.Club;
+import com.kidob.sportgames.app.rest.dto.ClubDTO;
 
 /**
  *  Entry point to perform operations over club entities
@@ -17,32 +17,32 @@ public interface ClubService {
 	/**
 	 * Saves specified club instance
 	 
-	 * @param team
-	 * @return the saved {@link Team} entity will never be null
+	 * @param club
+	 * @return the saved {@link Club} entity will never be null
 	 */
-	Team saveTeam(Team team);
+	Club saveClub(Club club);
 
 	/**
 	 * Updates specified club instance if exists
 	 * 
-	 * @param team
+	 * @param clubDTO
 	 * @return
 	 */
-	Team updateTeam(TeamDTO team);
+	Club updateClub(ClubDTO clubDTO);
 
 	/**
 	 * Return list of existing clubs
 	 * 
 	 * @return
 	 */
-	List<Team> findTeams();
+	List<Club> findClubs();
 
 	/**
 	 * Returns club with specified identifier. If club isn't found then empty
 	 * optional is returned.
 	 * 
-	 * @param id
+	 * @param clubId
 	 * @return
 	 */
-	Optional<Team> findTeamById(Long teamId);
+	Optional<Club> findClubById(Long clubId);
 }

@@ -2,6 +2,8 @@ package com.kidob.sportgames.app.model.entity.sport;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +24,7 @@ import com.kidob.sportgames.app.model.entity.location.Place;
 public class TeamMatch {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Column (name = "")
 	private Long id;
 	
 	@ManyToOne
@@ -35,8 +38,8 @@ public class TeamMatch {
 	@Column (name = "Score_Team_Match")
 	private int scoreTeamMatch;
 	
-	@ManyToOne
-	@JoinColumn (name = "Place_ID")
+	@Column (name = "Place_ID")
+	@Enumerated (EnumType.ORDINAL)
 	private Place place;
 	
 	public TeamMatch() {

@@ -1,5 +1,7 @@
 package com.kidob.sportgames.app.rest.dto;
 
+import java.time.LocalDateTime;
+
 import com.kidob.sportgames.app.model.entity.sport.Matches;
 import com.kidob.sportgames.app.rest.dto.base.BaseDTO;
 
@@ -17,6 +19,7 @@ public class MatchDTO extends BaseDTO<Matches>{
 	private Long awayTeamId;
 	private int homeTeamScore;	
 	private int awayTeamScore;
+	private LocalDateTime dateOfMatch;
 	
 	public Long getSportId() {
 		return sportId;
@@ -53,5 +56,11 @@ public class MatchDTO extends BaseDTO<Matches>{
 	}
 	public void setAwayTeamScore(int awayTeamScore) {
 		this.awayTeamScore = awayTeamScore;
+	}
+	public LocalDateTime getDateOfMatch() {
+		return dateOfMatch;
+	}
+	public void setDateOfMatch(LocalDateTime dateOfMatch) {
+		this.dateOfMatch = dateOfMatch;
 	}
 }

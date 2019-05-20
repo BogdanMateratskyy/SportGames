@@ -1,6 +1,5 @@
 package com.kidob.sportgames.app.rest.dto;
 
-import com.kidob.sportgames.app.model.entity.sport.Club;
 import com.kidob.sportgames.app.model.entity.sport.Team;
 import com.kidob.sportgames.app.rest.dto.base.BaseDTO;
 
@@ -12,23 +11,24 @@ import com.kidob.sportgames.app.rest.dto.base.BaseDTO;
  */
 public class TeamDTO extends BaseDTO<Team> {
 	
-	private String name;
+	private String teamName;
 	
-	private Club club;
+	private Long clubId;
 
-	public String getName() {
-		return name;
+	public String getTeamName() {
+		return teamName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 
-	public Club getClub() {
-		return club;
+	public Long getClubId() {
+		return clubId;
 	}
 
-	public void setClub(Club club) {
-		this.club = club;
+	public void setClubId(Long clubId) {
+		this.clubId = clubId;
 	}
+
 }

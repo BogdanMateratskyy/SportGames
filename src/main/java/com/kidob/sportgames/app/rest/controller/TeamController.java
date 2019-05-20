@@ -5,6 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +48,7 @@ public class TeamController extends BaseController {
 	 */
 	@PostMapping("/save")
 	public Team saveTeam(@RequestBody TeamDTO teamDTO) {
+
 		return teamService.saveTeam(modelMapper.map(teamDTO, Team.class));
 	}
 
@@ -56,7 +60,16 @@ public class TeamController extends BaseController {
 	 */
 	@PutMapping("/update")
 	public Team updateTeam(@RequestBody TeamDTO teamDTO) {
-		return teamService.updateTeam(modelMapper.map(teamDTO, Team.class));
+
+		Team team = modelMapper.map(teamDTO, Team.class);
+		if (teamDTO.getId() != null) {
+			team.setName(teamDTO.getTeamName());
+
+			if (teamDTO.getClubId() != null) {
+				team.getClub().setId(teamDTO.getClubId());
+			}
+		}
+		return teamService.updateTeam(team);
 	}
 
 	/**
@@ -66,8 +79,8 @@ public class TeamController extends BaseController {
 	 */
 	@GetMapping("/all")
 	public List<TeamDTO> findAllTeams() {
-		return teamService.findTeams().stream()
-				.map((team) -> modelMapper.map(team, TeamDTO.class))
+
+		return teamService.findTeams().stream().map((team) -> modelMapper.map(team, TeamDTO.class))
 				.collect(Collectors.toList());
 	}
 

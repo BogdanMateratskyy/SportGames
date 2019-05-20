@@ -31,7 +31,7 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public Team updateTeam(Team team) {
 		Team checkedTeam = teamRepository.findById(team.getId())
-				.orElseThrow(() -> new PersistenceException("Team not found"));		
+				.orElseThrow(() -> new PersistenceException("Team not found"));	
 		
 		return teamRepository.saveAndFlush(checkedTeam);
 	}

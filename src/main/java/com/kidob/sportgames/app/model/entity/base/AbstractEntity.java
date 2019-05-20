@@ -7,11 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.jpa.repository.Modifying;
 
 /**
  * Base class for all business entity
@@ -64,13 +61,6 @@ public class AbstractEntity {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-//
-//	@PrePersist
-//	public void prePersist() {
-//		if (getId() == 0) {
-//			setCreatedAt(LocalDateTime.now());
-//		}
-//	}
 
 	@Override
 	public int hashCode() {

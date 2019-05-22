@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,9 @@ import com.kidob.sportgames.app.service.TeamService;
  */
 @RestController
 @RequestMapping("team")
-public class TeamController extends BaseController {
+public class TeamController {
 
+	ModelMapper modelMapper = new ModelMapper();
 	/**
 	 * Underlying source of data
 	 */

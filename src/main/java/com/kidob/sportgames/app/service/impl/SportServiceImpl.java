@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kidob.sportgames.app.infra.exception.PersistenceException;
 import com.kidob.sportgames.app.model.entity.sport.Sport;
@@ -19,9 +20,9 @@ import com.kidob.sportgames.app.service.SportService;
  * @author Bogdan
  *
  */
+@Service
 public class SportServiceImpl implements SportService{
 
-	@Autowired
 	ModelMapper modelMaper = new ModelMapper();
 	
 	@Autowired

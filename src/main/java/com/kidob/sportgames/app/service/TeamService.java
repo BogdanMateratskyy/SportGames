@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.kidob.sportgames.app.model.entity.sport.Team;
+import com.kidob.sportgames.app.rest.dto.TeamDTO;
 
 /**
  * Entry point to perform operations over team entities
@@ -19,7 +20,7 @@ public interface TeamService {
 	 * @param team
 	 * @return the saved {@link Team} entity will never be null
 	 */
-	Team saveTeam(Team team);
+	TeamDTO saveTeam(TeamDTO team);
 
 	/**
 	 * Updates specified team instance if exists
@@ -27,14 +28,14 @@ public interface TeamService {
 	 * @param team
 	 * @return
 	 */
-	Team updateTeam(Team team);
+	TeamDTO updateTeam(TeamDTO teamDto);
 
 	/**
 	 * Return list of existing teams
 	 * 
 	 * @return
 	 */
-	List<Team> findTeams();
+	List<TeamDTO> findTeams();
 
 	/**
 	 * Returns team with specified identifier. If team isn't found then empty
@@ -43,7 +44,7 @@ public interface TeamService {
 	 * @param id
 	 * @return
 	 */
-	Optional<Team> findTeamById(Long teamId);
+	Optional<TeamDTO> findTeamById(Long teamId);
 
 	// List<Team> searchTeams();
 
@@ -52,5 +53,5 @@ public interface TeamService {
 	 * 
 	 * @param TeamId
 	 */
-	void deleteTeam(Long teamId);
+	boolean deleteTeam(Long teamId);
 }

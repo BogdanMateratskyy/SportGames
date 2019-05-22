@@ -54,28 +54,38 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public MatchDTO updateMatch(MatchDTO matchDto) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public List<MatchDTO> findMatches() {
 		List<MatchDTO> dtoList = new ArrayList<>();
-		
-		
+				
 		List<Matches> matches = matchesRepository.findAll();
 		List<TeamMatch> teamMatches = teamMatchRepository.findAll();
-		
+		TeamMatch homeTeamMatch = new TeamMatch();
+		TeamMatch awayTeamMatch = new TeamMatch();
 		for (Matches match : matches) {
 			for (TeamMatch teamMatch : teamMatches) {
 				if(match.getId() == teamMatch.getMatch().getId()) {
-					homeTeamMatch.
-					dtoList.ad
+					if (Place.HOME.equals(teamMatch.getPlace())) {
+						homeTeamMatch.setMatch(match);
+						homeTeamMatch.setTeam(teamMatch.getTeam());
+						homeTeamMatch.getScoreTeamMatch();
+						homeTeamMatch.setPlace(teamMatch.getPlace());
+					}else {
+						awayTeamMatch.setMatch(match);
+						awayTeamMatch.setTeam(teamMatch.getTeam());
+						awayTeamMatch.getScoreTeamMatch();
+						awayTeamMatch.setPlace(teamMatch.getPlace());
+					}					
 				}
 			}
+			dtoList.add(convertToDto(match, homeTeamMatch, awayTeamMatch));
 		}
-		dtoList.addAll(convertToDto(matches, homeTeamMatch, awayTeamMatch));
-		return null;
+		
+		return dtoList;
 	}
 
 	@Override
@@ -106,12 +116,10 @@ public class MatchServiceImpl implements MatchService {
 	private Matches getMatchFromDto(MatchDTO matchDto) {
 
 		Sport sport = sportRepository.findById(matchDto.getSportId())
-				.orElseThrow(() -> 
-				new PersistenceException("Sport not found by Id: " + matchDto.getSportId()));
+				.orElseThrow(() -> new PersistenceException("Sport not found by Id: " + matchDto.getSportId()));
 
 		Tournament tournament = tournamentRepository.findById(matchDto.getSportId())
-				.orElseThrow(() -> 
-				new PersistenceException("Tournament not found by Id: " + matchDto.getSportId()));
+				.orElseThrow(() -> new PersistenceException("Tournament not found by Id: " + matchDto.getSportId()));
 
 		LocalDateTime dateOfMatch = matchDto.getDateOfMatch();
 

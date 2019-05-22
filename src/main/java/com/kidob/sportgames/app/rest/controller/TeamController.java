@@ -2,10 +2,7 @@ package com.kidob.sportgames.app.rest.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.apache.commons.lang3.math.NumberUtils;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kidob.sportgames.app.model.entity.sport.Team;
 import com.kidob.sportgames.app.rest.dto.TeamDTO;
 import com.kidob.sportgames.app.service.TeamService;
 
@@ -30,8 +26,7 @@ import com.kidob.sportgames.app.service.TeamService;
 @RestController
 @RequestMapping("team")
 public class TeamController {
-
-	ModelMapper modelMapper = new ModelMapper();
+	
 	/**
 	 * Underlying source of data
 	 */
@@ -45,9 +40,9 @@ public class TeamController {
 	 * @return new team instance
 	 */
 	@PostMapping("/save")
-	public Team saveTeam(@RequestBody TeamDTO teamDTO) {
+	public TeamDTO saveTeam(@RequestBody TeamDTO teamDTO) {
 
-		return teamService.saveTeam(modelMapper.map(teamDTO, Team.class));
+		return teamService.saveTeam(teamDTO);
 	}
 
 	/**
@@ -57,18 +52,9 @@ public class TeamController {
 	 * @return
 	 */
 	@PutMapping("/update")
-	public Team updateTeam(@RequestBody TeamDTO teamDTO) {
-
-		Team team = modelMapper.map(teamDTO, Team.class);
+	public TeamDTO updateTeam(@RequestBody TeamDTO teamDto) {
 		
-		if (teamDTO.getId() != null) {
-			team.setName(teamDTO.getTeamName());
-
-			if (teamDTO.getClubId() != null) {
-				team.getClub().setId(teamDTO.getClubId());
-			}
-		}
-		return teamService.updateTeam(team);
+		return teamService.updateTeam(teamDto);
 	}
 
 	/**
@@ -79,9 +65,7 @@ public class TeamController {
 	@GetMapping("/all")
 	public List<TeamDTO> findAllTeams() {
 
-		return teamService.findTeams().stream()
-				.map((team) -> modelMapper.map(team, TeamDTO.class))
-				.collect(Collectors.toList());
+		return teamService.findTeams();
 	}
 
 	/**
@@ -97,12 +81,12 @@ public class TeamController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Optional<Team> team = teamService.findTeamById(NumberUtils.toLong(teamId));
+		Optional<TeamDTO> teamDto = teamService.findTeamById(NumberUtils.toLong(teamId));
 
-		if (!team.isPresent()) {
+		if (!teamDto.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		return ResponseEntity.ok(modelMapper.map(team.get(), TeamDTO.class));
+		return ResponseEntity.ok(teamDto.get());
 	}
 }

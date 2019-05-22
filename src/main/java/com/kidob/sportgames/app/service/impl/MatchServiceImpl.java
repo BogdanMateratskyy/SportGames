@@ -1,10 +1,10 @@
 package com.kidob.sportgames.app.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kidob.sportgames.app.infra.exception.PersistenceException;
@@ -60,10 +60,21 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public List<MatchDTO> findMatches() {
-		MatchDTO matchDto = new MatchDTO();
-		List<Matches> matches = matchesRepository.findAll();
-		List<TeamMatch> temaMatches = teamMatchRepository.findAll();
+		List<MatchDTO> dtoList = new ArrayList<>();
 		
+		
+		List<Matches> matches = matchesRepository.findAll();
+		List<TeamMatch> teamMatches = teamMatchRepository.findAll();
+		
+		for (Matches match : matches) {
+			for (TeamMatch teamMatch : teamMatches) {
+				if(match.getId() == teamMatch.getMatch().getId()) {
+					homeTeamMatch.
+					dtoList.ad
+				}
+			}
+		}
+		dtoList.addAll(convertToDto(matches, homeTeamMatch, awayTeamMatch));
 		return null;
 	}
 

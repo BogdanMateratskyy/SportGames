@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kidob.sportgames.app.model.entity.sport.Club;
-import com.kidob.sportgames.app.rest.controller.base.BaseController;
 import com.kidob.sportgames.app.rest.dto.ClubDTO;
 import com.kidob.sportgames.app.service.ClubService;
 
@@ -29,8 +29,9 @@ import com.kidob.sportgames.app.service.ClubService;
  */
 @RestController
 @RequestMapping("club")
-public class ClubController extends BaseController {
+public class ClubController {
 
+	ModelMapper modelMapper = new ModelMapper();
 	/**
 	 * Underlying source of data
 	 */

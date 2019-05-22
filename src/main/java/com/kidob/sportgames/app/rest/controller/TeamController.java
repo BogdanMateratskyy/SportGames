@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kidob.sportgames.app.model.entity.sport.Team;
-import com.kidob.sportgames.app.rest.controller.base.BaseController;
 import com.kidob.sportgames.app.rest.dto.TeamDTO;
 import com.kidob.sportgames.app.service.TeamService;
 

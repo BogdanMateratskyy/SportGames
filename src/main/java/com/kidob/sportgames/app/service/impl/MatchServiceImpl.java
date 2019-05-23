@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kidob.sportgames.app.infra.exception.PersistenceException;
 import com.kidob.sportgames.app.model.entity.location.Place;
@@ -22,6 +23,13 @@ import com.kidob.sportgames.app.persistence.repository.TournamentRepository;
 import com.kidob.sportgames.app.rest.dto.MatchDTO;
 import com.kidob.sportgames.app.service.MatchService;
 
+/**
+ * Default implementation of the {@link MatchService}
+ * 
+ * @author Bogdan
+ *
+ */
+@Service
 public class MatchServiceImpl implements MatchService {
 
 	@Autowired

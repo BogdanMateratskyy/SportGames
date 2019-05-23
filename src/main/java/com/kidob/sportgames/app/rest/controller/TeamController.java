@@ -58,7 +58,7 @@ public class TeamController {
 	}
 
 	/**
-	 * Return all the existing teams in the form TeamDTO
+	 * Return all the existing teams
 	 * 
 	 * @return
 	 */
@@ -69,7 +69,7 @@ public class TeamController {
 	}
 
 	/**
-	 * Returns team with specified identifier in the form TeamDTO
+	 * Returns team with specified identifier
 	 * 
 	 * @param teamId
 	 * @return

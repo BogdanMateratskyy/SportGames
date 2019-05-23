@@ -20,11 +20,10 @@ import com.kidob.sportgames.app.model.entity.location.Place;
  *
  */
 @Entity
-@Table (name = "TeamMatch", schema = "SportGames")
+@Table (name = "Team_Match", schema = "SportGames")
 public class TeamMatch {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@Column (name = "")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long id;
 	
 	@ManyToOne

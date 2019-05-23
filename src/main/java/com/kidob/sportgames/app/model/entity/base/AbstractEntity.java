@@ -29,7 +29,7 @@ public class AbstractEntity {
 	 * Timestamp of entity creation
 	 */
 	@CreationTimestamp
-	@Column(name = "Created_at")
+	@Column(name = "Created_at", updatable=false)
 	private LocalDateTime createdAt;
 	/**
 	 * Timestamp of entity last modification

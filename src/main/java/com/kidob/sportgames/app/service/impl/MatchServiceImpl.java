@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,16 +33,12 @@ public class MatchServiceImpl implements MatchService {
 
 	@Autowired
 	private MatchesRepository matchesRepository;
-
 	@Autowired
 	private SportRepository sportRepository;
-
 	@Autowired
 	private TournamentRepository tournamentRepository;
-
 	@Autowired
 	private TeamRepository teamRepository;
-
 	@Autowired
 	private TeamMatchRepository teamMatchRepository;
 
@@ -53,9 +48,9 @@ public class MatchServiceImpl implements MatchService {
 		TeamMatch homeTeamMatch = getTeamMatchFromDto(matchDto, match, true);
 		TeamMatch awayTeamMatch = getTeamMatchFromDto(matchDto, match, false);
 
-		matchesRepository.saveAndFlush(match);
-		teamMatchRepository.saveAndFlush(homeTeamMatch);
-		teamMatchRepository.saveAndFlush(awayTeamMatch);
+		matchesRepository.save(match);
+		teamMatchRepository.save(homeTeamMatch);
+		teamMatchRepository.save(awayTeamMatch);
 
 		return convertToDto(match, homeTeamMatch, awayTeamMatch);
 	}
@@ -69,38 +64,43 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public List<MatchDTO> findMatches() {
 		List<MatchDTO> dtoList = new ArrayList<>();
-				
+
 		List<Matches> matches = matchesRepository.findAll();
 		List<TeamMatch> teamMatches = teamMatchRepository.findAll();
 		TeamMatch homeTeamMatch = new TeamMatch();
 		TeamMatch awayTeamMatch = new TeamMatch();
 		for (Matches match : matches) {
 			for (TeamMatch teamMatch : teamMatches) {
-				if(match.getId() == teamMatch.getMatch().getId()) {
+				if (match.getId() == teamMatch.getMatch().getId()) {
 					if (Place.HOME.equals(teamMatch.getPlace())) {
 						homeTeamMatch.setMatch(match);
 						homeTeamMatch.setTeam(teamMatch.getTeam());
-						homeTeamMatch.getScoreTeamMatch();
-						homeTeamMatch.setPlace(teamMatch.getPlace());
-					}else {
+						homeTeamMatch.setScoreTeamMatch(teamMatch.getScoreTeamMatch());
+						homeTeamMatch.setPlace(Place.HOME);
+					} else {
 						awayTeamMatch.setMatch(match);
 						awayTeamMatch.setTeam(teamMatch.getTeam());
-						awayTeamMatch.getScoreTeamMatch();
-						awayTeamMatch.setPlace(teamMatch.getPlace());
-					}					
+						awayTeamMatch.setScoreTeamMatch(teamMatch.getScoreTeamMatch());
+						awayTeamMatch.setPlace(Place.AWAY);
+					}
 				}
 			}
 			dtoList.add(convertToDto(match, homeTeamMatch, awayTeamMatch));
 		}
-		
 		return dtoList;
 	}
 
 	@Override
 	public Optional<MatchDTO> findMatchById(Long matchId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Matches match = matchesRepository.findById(matchId)
+				.orElseThrow(() -> new PersistenceException("Match not found by ID: " + matchId));
+			
+		TeamMatch homeTeamMatch = teamMatchRepository.findTeamMatchByMatch(match, Place.HOME);
+		
+		TeamMatch awayTeamMatch = teamMatchRepository.findTeamMatchByMatch(match, Place.AWAY);
+
+		return Optional.of(convertToDto(match, homeTeamMatch, awayTeamMatch));
+	}	
 
 	private MatchDTO convertToDto(Matches matches, TeamMatch homeTeamMatch, TeamMatch awayTeamMatch) {
 		MatchDTO matchDto = new MatchDTO();
@@ -112,8 +112,8 @@ public class MatchServiceImpl implements MatchService {
 			matchDto.setSportId(matches.getSport().getId());
 			matchDto.setTournamentId(matches.getTournament().getId());
 			matchDto.setDateOfMatch(matches.getDateMatch());
-			matchDto.setHomeTeamId(homeTeamMatch.getMatch().getId());
-			matchDto.setAwayTeamId(awayTeamMatch.getMatch().getId());
+			matchDto.setHomeTeamId(homeTeamMatch.getTeam().getId());
+			matchDto.setAwayTeamId(awayTeamMatch.getTeam().getId());
 			matchDto.setHomeTeamScore(homeTeamMatch.getScoreTeamMatch());
 			matchDto.setAwayTeamScore(awayTeamMatch.getScoreTeamMatch());
 		}
@@ -126,8 +126,8 @@ public class MatchServiceImpl implements MatchService {
 		Sport sport = sportRepository.findById(matchDto.getSportId())
 				.orElseThrow(() -> new PersistenceException("Sport not found by Id: " + matchDto.getSportId()));
 
-		Tournament tournament = tournamentRepository.findById(matchDto.getSportId())
-				.orElseThrow(() -> new PersistenceException("Tournament not found by Id: " + matchDto.getSportId()));
+		Tournament tournament = tournamentRepository.findById(matchDto.getTournamentId()).orElseThrow(
+				() -> new PersistenceException("Tournament not found by Id: " + matchDto.getTournamentId()));
 
 		LocalDateTime dateOfMatch = matchDto.getDateOfMatch();
 
@@ -138,13 +138,13 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	private TeamMatch getTeamMatchFromDto(MatchDTO matchDto, Matches match, boolean homeTeam) {
-		if (match == null) {
-			match = getMatchFromDto(matchDto);
-		}
 		Team team;
 		Place place;
 		int scoreTeam;
 
+		if (match == null) {
+			match = getMatchFromDto(matchDto);
+		}
 		if (homeTeam) {
 			team = teamRepository.findById(matchDto.getHomeTeamId()).orElseThrow(
 					() -> new PersistenceException("Home team not found by id: " + matchDto.getHomeTeamId()));
@@ -159,16 +159,4 @@ public class MatchServiceImpl implements MatchService {
 
 		return new TeamMatch(match, team, scoreTeam, place);
 	}
-
-	/*
-	 * private Post convertToEntity(PostDto postDto) throws ParseException { Post
-	 * post = modelMapper.map(postDto, Post.class); post.setSubmissionDate(
-	 * postDto.getSubmissionDateConverted(userService.getCurrentUser().getPreference
-	 * ().getTimezone()));
-	 * 
-	 * if (postDto.getId() != null) { Post oldPost =
-	 * postService.getPostById(postDto.getId());
-	 * post.setRedditID(oldPost.getRedditID()); post.setSent(oldPost.isSent()); }
-	 * return post; }
-	 */
 }

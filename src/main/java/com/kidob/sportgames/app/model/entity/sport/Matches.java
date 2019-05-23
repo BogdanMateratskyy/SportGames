@@ -21,14 +21,14 @@ import com.kidob.sportgames.app.model.entity.base.AbstractEntity;
 public class Matches extends AbstractEntity{
 	
 	@ManyToOne
-	@JoinColumn(name = "SportID", nullable = false)
+	@JoinColumn(name = "Sport_ID", nullable = false)
 	private Sport sport;
 	
 	@ManyToOne
-	@JoinColumn(name = "TournamentID", nullable = false)
+	@JoinColumn(name = "Tournament_ID", nullable = false)
 	private Tournament tournament;
 	
-	@Column(name = "DateMatch", nullable = false)
+	@Column(name = "Match_Date", nullable = false)
 	private LocalDateTime dateOfMatch;
 	
 	public Matches() {

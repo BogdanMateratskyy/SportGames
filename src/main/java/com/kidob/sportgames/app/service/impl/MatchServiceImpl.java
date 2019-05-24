@@ -65,18 +65,10 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public MatchDTO updateMatch(MatchDTO matchDto) {
-
-//		MatchDTO dto = findMatchById(matchDto.getId())
-//				.orElseThrow(() -> new PersistenceException("Match not found by ID: " + matchDto.getId()));
-//		
 		Matches match = getMatchFromDto(matchDto);
 		TeamMatch homeTeamMatch = teamMatchRepository.findTeamMatchByMatch(match, Place.HOME);		
 		TeamMatch awayTeamMatch = teamMatchRepository.findTeamMatchByMatch(match, Place.AWAY);
-////
-////		matchesRepository.saveAndFlush(match);
-////		teamMatchRepository.saveAndFlush(homeTeamMatch);
-////		teamMatchRepository.saveAndFlush(awayTeamMatch);
-//		return saveMatch(matchDto);
+		
 		Team homeTeam = teamRepository.findById(matchDto.getHomeTeamId())
 				.orElseThrow(() ->new PersistenceException("Team not found by Id: "+matchDto.getHomeTeamId()));
 		Team awayTeam = teamRepository.findById(matchDto.getAwayTeamId())

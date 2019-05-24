@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kidob.sportgames.app.infra.exception.ConfigurationException;
 import com.kidob.sportgames.app.infra.exception.PersistenceException;
 import com.kidob.sportgames.app.model.entity.location.Place;
 import com.kidob.sportgames.app.model.entity.sport.Matches;
@@ -45,20 +46,54 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public MatchDTO saveMatch(MatchDTO matchDto) {
 		Matches match = getMatchFromDto(matchDto);
-		TeamMatch homeTeamMatch = getTeamMatchFromDto(matchDto, match, true);
-		TeamMatch awayTeamMatch = getTeamMatchFromDto(matchDto, match, false);
-
-		matchesRepository.save(match);
-		teamMatchRepository.save(homeTeamMatch);
-		teamMatchRepository.save(awayTeamMatch);
-
+		TeamMatch homeTeamMatch = null;
+		TeamMatch awayTeamMatch = null;
+		
+		if(matchesRepository.findById(match.getId()).isPresent()) {
+			throw new ConfigurationException("The match by ID " + matchDto.getId() + " already exist");
+		} else {
+			match = getMatchFromDto(matchDto);
+			homeTeamMatch = getTeamMatchFromDto(matchDto, match, true);
+			awayTeamMatch = getTeamMatchFromDto(matchDto, match, false);
+		
+			matchesRepository.save(match);
+			teamMatchRepository.save(homeTeamMatch);
+			teamMatchRepository.save(awayTeamMatch);			
+		}		
 		return convertToDto(match, homeTeamMatch, awayTeamMatch);
 	}
 
 	@Override
 	public MatchDTO updateMatch(MatchDTO matchDto) {
 
-		return null;
+//		MatchDTO dto = findMatchById(matchDto.getId())
+//				.orElseThrow(() -> new PersistenceException("Match not found by ID: " + matchDto.getId()));
+//		
+		Matches match = getMatchFromDto(matchDto);
+		TeamMatch homeTeamMatch = teamMatchRepository.findTeamMatchByMatch(match, Place.HOME);		
+		TeamMatch awayTeamMatch = teamMatchRepository.findTeamMatchByMatch(match, Place.AWAY);
+////
+////		matchesRepository.saveAndFlush(match);
+////		teamMatchRepository.saveAndFlush(homeTeamMatch);
+////		teamMatchRepository.saveAndFlush(awayTeamMatch);
+//		return saveMatch(matchDto);
+		Team homeTeam = teamRepository.findById(matchDto.getHomeTeamId())
+				.orElseThrow(() ->new PersistenceException("Team not found by Id: "+matchDto.getHomeTeamId()));
+		Team awayTeam = teamRepository.findById(matchDto.getAwayTeamId())
+				.orElseThrow(() ->new PersistenceException("Team not found by Id: "+matchDto.getAwayTeamId()));
+		
+		homeTeamMatch.setMatch(match);
+		awayTeamMatch.setMatch(match);
+		homeTeamMatch.setTeam(homeTeam);
+		awayTeamMatch.setTeam(awayTeam);
+		homeTeamMatch.setScoreTeamMatch(matchDto.getHomeTeamScore());
+		awayTeamMatch.setScoreTeamMatch(matchDto.getAwayTeamScore());
+		
+		matchesRepository.saveAndFlush(match);
+		teamMatchRepository.saveAndFlush(homeTeamMatch);
+		teamMatchRepository.saveAndFlush(awayTeamMatch);
+
+		return convertToDto(match, homeTeamMatch, awayTeamMatch);
 	}
 
 	@Override
@@ -105,6 +140,9 @@ public class MatchServiceImpl implements MatchService {
 	private MatchDTO convertToDto(Matches matches, TeamMatch homeTeamMatch, TeamMatch awayTeamMatch) {
 		MatchDTO matchDto = new MatchDTO();
 
+		if (matches == null || homeTeamMatch == null || awayTeamMatch == null) {
+			throw new ConfigurationException("All parameters must be not-null");
+		}
 		if (matches.getId() == homeTeamMatch.getMatch().getId()
 				&& matches.getId() == awayTeamMatch.getMatch().getId()) {
 
@@ -157,6 +195,7 @@ public class MatchServiceImpl implements MatchService {
 			scoreTeam = matchDto.getAwayTeamScore();
 		}
 
+		
 		return new TeamMatch(match, team, scoreTeam, place);
 	}
 }

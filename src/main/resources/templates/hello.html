@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Sport Games</title>
+</head>
+<body>
+	<div class="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<h1 th:inline="text">Hello
+					[[${#httpServletRequest.remoteUser}]]!</h1>
+				<h3> Please select the section below</h3>
+				<ul class="nav">
+					<li><a th:href="@{/}" href="home.html"> Home </a></li>
+					<li><a th:href="@{/matches}" href="matches.html"> Match
+							List </a></li>
+					<li><a th:href="@{/teams}" href="teams.html"> Team List </a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+</body>
+
+</html>

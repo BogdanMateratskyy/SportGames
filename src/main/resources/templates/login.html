@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<title>Login page</title>
+
+</head>
+<body onload="document.f.username.focus();">
+	<div class="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<ul class="nav">
+					<li><a th:href="@{/}" href="home.html"> Home </a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="content">
+			<h2>Login page</h2>
+			<div th:if="${param.error}">
+				Invalid user name and password.<br />
+			</div>
+			<div th:if="${param.logout}">You have been logged out.</div>
+
+			<form name="form" th:action="@{/login}" action="/login" method="post">
+				<div>
+					<label> User name: <input type="text" name="username"
+						placeholder="Username" /></label>
+				</div>
+				<br />
+				<div>
+					<label> Password: <input type="password" name="password"
+						placeholder="Password" /></label>
+				</div>
+				<br />
+				<div>
+					<input type="submit" id="login" value="Sign In"
+						class="btn btn-primary" />
+				</div>
+
+			</form>
+		</div>
+	</div>
+</body>
+</html>

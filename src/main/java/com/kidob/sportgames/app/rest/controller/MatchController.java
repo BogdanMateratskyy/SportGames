@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,7 +64,9 @@ public class MatchController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/all")
+	@GetMapping(path = "/all", 
+			produces = {MediaType.APPLICATION_JSON_VALUE,
+						MediaType.APPLICATION_XML_VALUE})
 	public List<MatchDTO> findAllMatches() {
 
 		return matchService.findMatches();

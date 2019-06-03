@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<title>Matches</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Match List</h1>
+		<br />
+		<table border="1">
+			<caption>MATCH TABLE FOR TOURNAMENT</caption>
+			<tr>
+				<th>TOURNAMENT</th>
+				<th>SPORT</th>
+				<th>MATCH_ID</th>
+				<th>DATE_OF_MATCH</th>
+				<th>HOST_TEAM</th>
+				<th>HT_SCORE</th>
+				<th>GT_SCORE</th>
+				<th>GUEST_TEAM</th>
+			</tr>
+			<tr th:each="match : ${matches}">
+				<td th:text="${match.tournamentId}">TOURNAMENT</td>
+				<td th:text="${match.sportId}">SPORT</td>
+				<td th:text="${match.id}">MATCH_ID</td>
+				<td th:text="${match.dateOfMatch}">DATE_OF_MATCH</td>
+				<td th:text="${match.homeTeamId}">HOST_TEAM</td>
+				<td th:text="${match.homeTeamScore}">HT_SCORE</td>
+				<td th:text="${match.awayTeamScore}">GT_SCORE</td>
+				<td th:text="${match.awayTeamId}">GUEST_TEAM</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

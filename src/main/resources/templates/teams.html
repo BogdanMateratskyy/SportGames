@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<title>Teams</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Team List</h1>
+		<br />
+		<table border="1">
+			<caption> TABLE OF ALL TEAMS</caption>
+			<tr>
+				<th>TEAM_ID</th>
+				<th>TEAM_NAME</th>
+				<th>CLUB_ID</th>
+			</tr>
+			<tr th:each="team : ${teams}">
+				<td th:text="${team.id}">TEAM_ID</td>
+				<td th:text="${team.teamName}">TEAM_NAME</td>
+				<td th:text="${team.clubId}">CLUB_ID</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
